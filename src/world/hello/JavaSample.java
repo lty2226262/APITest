@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 //import java.io.*;
 // // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
 import java.net.URI;
@@ -25,7 +26,7 @@ public class JavaSample
     public static void main(String[] args) 
     {
         HttpClient httpclient = HttpClients.createDefault();
-
+        
         try
         {
             URIBuilder builder = new URIBuilder("https://api.projectoxford.ai/vision/v1.0/analyze");
@@ -38,7 +39,9 @@ public class JavaSample
             request.setHeader("Content-Type", "application/octet-stream");
             request.setHeader("Ocp-Apim-Subscription-Key", "7771debe2b4a46279646ecd0fa8e6f19");
 
-
+            byte[] bytes = "Hello, World!".getBytes("UTF-8");
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            byte[] decoded = Base64.getDecoder().decode(encoded);
             // Request body
 //            JSONObject obj = new JSONObject();
 //            System.out.println(obj.toJSONString());
